@@ -4,7 +4,9 @@
     { "src": "api/upload.js", "use": "@vercel/node" }
   ],
   "routes": [
+    { "handle": "filesystem" },
     { "src": "/api/upload", "dest": "/api/upload.js" },
-    { "src": "/v/(.*)", "dest": "/v/index.html" }
+    { "src": "/v/(.*)", "dest": "/v/index.html" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
