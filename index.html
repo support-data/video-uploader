@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Video Uploader</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: #0f172a;
+      color: white;
+      font-family: Arial;
+      text-align: center;
+      padding: 40px;
+    }
+    .box {
+      background: #1e293b;
+      padding: 30px;
+      border-radius: 15px;
+      display: inline-block;
+    }
+    button {
+      padding: 10px 20px;
+      background: #3b82f6;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>Upload Video</h2>
+  <form id="uploadForm">
+    <input type="file" name="video" accept="video/*" required><br><br>
+    <button type="submit">Upload</button>
+  </form>
+  <p id="status"></p>
+</div>
+
+<script>
+const form = document.getElementById("uploadForm");
+const statusText = document.getElementById("status");
+
+form.addEventListener("submit", async function(e) {
+  e.preventDefault();
+  statusText.innerText = "Uploading...";
+
+  const formData = new FormData(form);
+
+  const response = await fetch("/api/upload", {
+    method: "POST",
+    body: formData
+  });
+
+  const data = await response.json();
+
+  if (data.watchUrl) {
+    statusText.innerHTML = `
+      ✅ Upload berhasil! <br><br>
+      🎬 Link Nonton: <a href="${data.watchUrl}" target="_blank">${data.watchUrl}</a><br>
+      📁 Direct Link: <a href="${data.directUrl}" target="_blank">${data.directUrl}</a>
+    `;
+  } else {
+    statusText.innerText = "Upload gagal!";
+  }
+});
+</script>
+
+</body>
+</html>
