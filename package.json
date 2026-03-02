@@ -1,0 +1,9 @@
+{
+  "name": "video-uploader",
+  "version": "1.0.0",
+  "dependencies": {
+    "formidable": "^3.5.0",
+    "fs-extra": "^11.2.0",
+    "nanoid": "^4.0.2"
+  }
+}
